@@ -15,13 +15,12 @@ class App extends React.Component {
       photos: []
     }
 }
-/*** 
-updateSearch = (searchFor) => {
-  this.setState(prevState => ({
-    searchTerm: prevState.searchTerm.concat(searchFor),
-  }))
+
+//searches based on passed in search urls
+componentDidMount(){
+  if(this.props.history.location.pathname.startsWith('/search/')){
+  this.performSearch(this.props.history.location.pathname.slice(8))}
 }
-***/
 
 performSearch = (searchTerm) => {
   
@@ -53,8 +52,8 @@ if (tag.length > 0){
         
           <Switch>
           <Route exact path="/" render={()=> <Redirect to="/home"/>}/>
-          <Route exact path="/home" render={()=> <Home history={this.props.history} photos={this.state.photos} onSearch={this.updateSearch} startSearch={this.performSearch}/>}/>
-          <Route path="/search/:search" render={()=> <Search history={this.props.history} photos={this.state.photos} onSearch={this.updateSearch} startSearch={this.performSearch}/>}/>
+          <Route exact path="/home" render={()=> <Home history={this.props.history} photos={this.state.photos} startSearch={this.performSearch}/>}/>
+          <Route path="/search/:search" render={()=> <Search history={this.props.history} photos={this.state.photos} startSearch={this.performSearch}/>}/>
           <Route component={NotFound}/>
           </Switch>
        

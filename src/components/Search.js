@@ -8,9 +8,9 @@ class Search extends React.Component {
     render() {
       return (
         <React.Fragment>
-          <SearchBar history={this.props.history} onSearch={this.props.onSearch} startSearch={this.props.startSearch}/>
+          <SearchBar history={this.props.history} startSearch={this.props.startSearch}/>
           <Nav onSearch={this.props.onSearch} startSearch={this.props.startSearch}/>
-          <PhotoContainer photos={this.props.photos} onSearch={this.props.onSearch} history={this.props.history} startSearch={this.props.startSearch}/>
+          <PhotoContainer photos={this.props.photos} history={this.props.history} startSearch={this.props.startSearch}/>
         </React.Fragment>
       )
     }
