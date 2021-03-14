@@ -39,7 +39,10 @@ class PhotoContainer extends React.Component {
         return(
             <React.Fragment>
                 <div className="photo-container">
-                <h2>Results for {this.props.history.location.pathname.slice(8)}</h2>
+                {(this.props.loading)
+                ?<h2>Loading...</h2>
+                :<h2>Results for {this.props.history.location.pathname.slice(8)}</h2>
+                }
                 <ul>
                     {this.state.photoObjects.map(photo => <Photo key= {photo.key} data={photo}/>)}
                 </ul>

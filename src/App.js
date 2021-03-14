@@ -12,7 +12,8 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      photos: []
+      photos: [],
+      loading: true
     }
 }
 
@@ -32,6 +33,12 @@ performSearch = (searchTerm) => {
   let amountOfPictures = 24;
   let flickrAPI = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&tags=${tag}&per_page=${amountOfPictures}&page=1&format=json&nojsoncallback=1`;
 
+  /* makes sure loading is set to true even if it has previously been set to false (after a completed search)*/
+  this.setState({
+    loading: true
+  })
+
+
   /***
    * FETCH DATA
    ***/
@@ -39,6 +46,7 @@ if (tag.length > 0){
    fetch(flickrAPI)
    .then(data => data.json())  
    .then(data => this.setState({photos: data}))
+   .then(()=>{this.setState({loading: false})})
 }}
 
 
@@ -53,7 +61,7 @@ if (tag.length > 0){
           <Switch>
           <Route exact path="/" render={()=> <Redirect to="/home"/>}/>
           <Route exact path="/home" render={()=> <Home history={this.props.history} photos={this.state.photos} startSearch={this.performSearch}/>}/>
-          <Route path="/search/:search" render={()=> <Search history={this.props.history} photos={this.state.photos} startSearch={this.performSearch}/>}/>
+          <Route path="/search/:search" render={()=> <Search history={this.props.history} loading={this.state.loading} photos={this.state.photos} startSearch={this.performSearch}/>}/>
           <Route component={NotFound}/>
           </Switch>
        

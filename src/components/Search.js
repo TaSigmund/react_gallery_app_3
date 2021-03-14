@@ -10,7 +10,7 @@ class Search extends React.Component {
         <React.Fragment>
           <SearchBar history={this.props.history} startSearch={this.props.startSearch}/>
           <Nav onSearch={this.props.onSearch} startSearch={this.props.startSearch}/>
-          <PhotoContainer photos={this.props.photos} history={this.props.history} startSearch={this.props.startSearch}/>
+          <PhotoContainer loading={this.props.loading} photos={this.props.photos} history={this.props.history} startSearch={this.props.startSearch}/>
         </React.Fragment>
       )
     }
