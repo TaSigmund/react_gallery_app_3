@@ -25,6 +25,7 @@ class PhotoContainer extends React.Component {
           this.setState({photoObjects: photoObjects})
         }
 
+    //triggers photo updates when the user navigates to a new search request
     componentDidUpdate(prevProps) {
         // for on page navigation
         if (this.props.photos !== prevProps.photos){
@@ -39,13 +40,20 @@ class PhotoContainer extends React.Component {
         return(
             <React.Fragment>
                 <div className="photo-container">
-                {(this.props.loading)
-                ?<h2>Loading...</h2>
-                :<h2>Results for {this.props.history.location.pathname.slice(8)}</h2>
+                {
+                /*** LOADING INDICATOR ***/
+                (this.props.loading)?
+                <h2>Loading...</h2>:
+                <h2>Results for {this.props.history.location.pathname.slice(8)}</h2>
                 }
+                {
+                /*** RESULTS OR NOT FOUND MESSAGE ***/
+                (this.state.photoObjects.length === 0)?
+                <p> Sorry, no images could be found for this request.</p>:
                 <ul>
                     {this.state.photoObjects.map(photo => <Photo key= {photo.key} data={photo}/>)}
                 </ul>
+                }
                 </div>
             </React.Fragment>
         )

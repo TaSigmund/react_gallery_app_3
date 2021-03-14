@@ -46,7 +46,7 @@ if (tag.length > 0){
    fetch(flickrAPI)
    .then(data => data.json())  
    .then(data => this.setState({photos: data}))
-   .then(()=>{this.setState({loading: false})})
+   .then(()=>{this.setState({loading: false})}) //indicates that the loading is done
 }}
 
 
@@ -62,7 +62,7 @@ if (tag.length > 0){
           <Route exact path="/" render={()=> <Redirect to="/home"/>}/>
           <Route exact path="/home" render={()=> <Home history={this.props.history} photos={this.state.photos} startSearch={this.performSearch}/>}/>
           <Route path="/search/:search" render={()=> <Search history={this.props.history} loading={this.state.loading} photos={this.state.photos} startSearch={this.performSearch}/>}/>
-          <Route component={NotFound}/>
+          <Route render={()=> <NotFound history={this.props.history} photos={this.state.photos} startSearch={this.performSearch}/>}/>
           </Switch>
        
       </React.Fragment>
