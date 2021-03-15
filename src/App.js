@@ -1,3 +1,4 @@
+/*** DEPENDENCIES ***/
 import React from 'react';
 import {Route, Redirect, Switch, withRouter} from 'react-router-dom'
 import './index.css';
@@ -12,22 +13,27 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      photos: [],
-      loading: true
+      photos: [], //fetched data
+      loading: true // true = fetching not yet completed false = fetching completed
     }
 }
 
-//searches based on passed in search urls
+/*** 
+ * FOR SEARCHES BASED ON PASSED IN URLS
+***/
 componentDidMount(){
   if(this.props.history.location.pathname.startsWith('/search/')){
-  this.performSearch(this.props.history.location.pathname.slice(8))}
+  this.performSearch(this.props.history.location.pathname.slice(8))
+  }
 }
 
+/*** 
+ * RETRIEVING DATA FROM THE FLICKR API
+***/
 performSearch = (searchTerm) => {
   
-  /***
-   * CREATE URL FOR FETCH
-   ***/
+  /*CREATE URL FOR FETCH*/
+
   let tag= searchTerm
   let api_key = apiKey;
   let amountOfPictures = 24;
@@ -38,25 +44,25 @@ performSearch = (searchTerm) => {
     loading: true
   })
 
-
-  /***
-   * FETCH DATA
-   ***/
-if (tag.length > 0){
-   fetch(flickrAPI)
-   .then(data => data.json())  
-   .then(data => this.setState({photos: data}))
-   .then(()=>{this.setState({loading: false})}) //indicates that the loading is done
-}}
+  /* FETCH DATA */
+  if (tag.length > 0){
+    fetch(flickrAPI)
+    .then(data => data.json())  
+    .then(data => this.setState({photos: data}))
+    .then(()=>{this.setState({loading: false})}) //indicates that the loading is done
+    .catch(err => console.log(err))
+  }
+}
 
 
   render(){
-    const { match, location, history } = this.props;
     return(
           
       <React.Fragment>
 
-{/*** ROUTES ***/}
+{/*** 
+* ROUTES 
+***/}
         
           <Switch>
           <Route exact path="/" render={()=> <Redirect to="/home"/>}/>

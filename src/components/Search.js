@@ -2,7 +2,10 @@ import React from 'react';
 import Nav from './Nav'
 import PhotoContainer from './PhotoContainer';
 import SearchBar from './SearchBar'
-import NotFound from './NotFound'
+
+/*** 
+ HOLDS ALL THE COMPONENTS TO SEARCH FOR AND DISPLAY THE PICTURES
+****/
 class Search extends React.Component {
 
     render() {

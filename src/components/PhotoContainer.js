@@ -12,7 +12,7 @@ class PhotoContainer extends React.Component {
         }
     }  
   
-    //turns the json data into better usable photo objects that only hold the necessary data
+    /*turns the json data into better usable photo objects that only hold the necessary data */
     createPhotoObjects = (pictures) => {
         let photoObjects = [];
         pictures.photos.photo.map(photo => 
@@ -25,7 +25,7 @@ class PhotoContainer extends React.Component {
           this.setState({photoObjects: photoObjects})
         }
 
-    //triggers photo updates when the user navigates to a new search request
+    /*triggers photo updates when the user navigates to a new search request*/
     componentDidUpdate(prevProps) {
         // for on page navigation
         if (this.props.photos !== prevProps.photos){
@@ -44,15 +44,27 @@ class PhotoContainer extends React.Component {
                 /*** LOADING INDICATOR ***/
                 (this.props.loading)?
                 <h2>Loading...</h2>:
-                <h2>Results for {this.props.history.location.pathname.slice(8)}</h2>
+                <React.Fragment></React.Fragment>
                 }
                 {
-                /*** RESULTS OR NOT FOUND MESSAGE ***/
-                (this.state.photoObjects.length === 0)?
-                <p> Sorry, no images could be found for this request.</p>:
+                /*** NOT FOUND MESSAGE ***/
+                (this.state.photoObjects.length === 0 && this.props.loading === false)?
+                <React.Fragment>
+                <h2>No results found</h2>
+                <p> That search did not return any results, please try again.</p>
+                </React.Fragment>:
+                <React.Fragment></React.Fragment>
+                }
+                {
+                /*** RESULTS***/
+                (this.state.photoObjects.length > 0 && this.props.loading === false)?
+                <React.Fragment>
+                <h2>Results for {this.props.history.location.pathname.slice(8)}</h2>
                 <ul>
                     {this.state.photoObjects.map(photo => <Photo key= {photo.key} data={photo}/>)}
                 </ul>
+                </React.Fragment>:
+                <React.Fragment></React.Fragment>
                 }
                 </div>
             </React.Fragment>
